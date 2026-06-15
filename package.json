@@ -1,0 +1,19 @@
+{
+  "name": "testbench",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@testcontainers/postgresql": "^12.0.2",
+    "@testcontainers/redis": "^12.0.2",
+    "axios": "^1.18.0",
+    "mqtt": "^5.15.1",
+    "testcontainers": "^10.7.1"
+  }
+}
