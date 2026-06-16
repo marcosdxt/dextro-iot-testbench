@@ -60,7 +60,8 @@ async function runTestBench() {
     console.log("🤖 Iniciando Binário Nativo [DEV-NATIVE-001]...");
     const { spawn } = require("child_process");
     
-    const binaryPath = "/home/devel/dextro-iot/dextro-iot-cpp/build/examples/iot-example";
+    const binaryPath = process.env.IOT_BINARY_PATH || "/home/devel/dextro-iot/dextro-iot-cpp/build/examples/iot-example";
+    console.log(`🔍 Usando binário em: ${binaryPath}`);
     const nativeProc = spawn(binaryPath, ["127.0.0.1", mqttPort]);
 
     nativeProc.stdout.on("data", (data) => {
