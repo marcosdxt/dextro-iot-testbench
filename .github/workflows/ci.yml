@@ -1,0 +1,35 @@
+name: TestBench CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 20.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.x
+        cache: 'npm'
+    
+    # Precisamos compilar o C++ pois o testbench tenta executá-lo
+    - name: Install C++ Build Tools
+      run: sudo apt-get update && sudo apt-get install -y cmake build-essential
+    
+    - name: Clone C++ Library
+      run: |
+        git clone https://github.com/marcosdxt/dextro-iot-cpp-lib.git ../dextro-iot-cpp
+        cd ../dextro-iot-cpp
+        git clone https://github.com/LiamBindle/MQTT-C.git external/mqtt-c
+        cmake -B build
+        cmake --build build
+    
+    - run: npm install
+    - name: Run TestBench Simulation
+      run: node index.js
